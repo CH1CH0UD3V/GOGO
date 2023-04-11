@@ -9,8 +9,10 @@ public class BackToTheFuture : MonoBehaviour
     [SerializeField] ParticleSystem _firstLine;
     [SerializeField] ParticleSystem _secondLine;
     [SerializeField] GameObject _lightning;
+    [SerializeField] GameObject _flashingLight;
+    [SerializeField] GameObject _carLight;
     [SerializeField] TruckMovement _disableMap;
-    [SerializeField] float _timeBeforeDisable;
+    //[SerializeField] float _timeBeforeDisable;
     //[SerializeField] GameObject _blackScreen;
     //[SerializeField] AudioSource _boomSound;
     //[SerializeField] GameObject _buttonNext;
@@ -25,6 +27,7 @@ public class BackToTheFuture : MonoBehaviour
         TruckTag car = other.GetComponentInParent<TruckTag> ();
         if (car != null)
         {
+            _carLight.SetActive(false);
             StartCoroutine (WaitAndDisable ());
         }
     }
@@ -34,11 +37,14 @@ public class BackToTheFuture : MonoBehaviour
     #region Coroutine WaitAndDisable
     IEnumerator WaitAndDisable ()
     {
-        yield return new WaitForSeconds(_timeBeforeDisable);
+        _flashingLight.SetActive (true);
+        yield return new WaitForSeconds(0.4f);
+        _flashingLight.SetActive (false);
+        //yield return new WaitForSeconds(_timeBeforeDisable);
         _render.SetActive (false);
         _firstLine.Play();
         _secondLine.Play();
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1.25f);
         _disableMap.Disactivate ();
         _lightning.SetActive (false);
         //yield return new WaitForSeconds(4f);

@@ -7,7 +7,9 @@ public class ActiveFinish : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera _camVir1;
     [SerializeField] CinemachineVirtualCamera _camVir2;
+    [SerializeField] CinemachineVirtualCamera _camVir3;
     [SerializeField] GameObject _lightning;
+    [SerializeField] GameObject _carLight;
 
     private void OnTriggerEnter (Collider other)
     {
@@ -18,6 +20,7 @@ public class ActiveFinish : MonoBehaviour
             _camVir2.Priority = 11;
             Debug.Log ("88 Miles à l'heeeeeuuuuurrree !!!!!!!");
             _lightning.SetActive (true);
+            _carLight.SetActive (true);
         }
     }
 }

@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class RocCatapult : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject _blueBuilding;
+    [SerializeField] ParticleSystem _deepImpact;
+    [SerializeField] float _speedRoc;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        transform.LookAt(_blueBuilding.transform);
+        transform.Translate ((transform.position + _blueBuilding.transform.position) * _speedRoc * Time.smoothDeltaTime);
+        _deepImpact.Play();
+    }
+
+    private void OnCollisionEnter (Collision collision)
+    {
+        if (collision.gameObject.name == "blue building")
+        {
+            GameObject blueB = collision.gameObject;
+            if (blueB != null)
+            {
+                _deepImpact.Stop ();
+            }
+        }
+
     }
 }
