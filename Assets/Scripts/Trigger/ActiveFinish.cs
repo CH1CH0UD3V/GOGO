@@ -7,13 +7,13 @@ public class ActiveFinish : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera _camVir1;
     [SerializeField] CinemachineVirtualCamera _camVir2;
-    [SerializeField] CinemachineVirtualCamera _camVir3;
+    //[SerializeField] CinemachineVirtualCamera _camVir3;
     [SerializeField] GameObject _lightning;
     [SerializeField] GameObject _carLight;
 
     private void OnTriggerEnter (Collider other)
     {
-      TruckTag Truck = other.GetComponentInParent<TruckTag> ();
+        TruckTag Truck = other.GetComponentInParent<TruckTag> ();
         if ( Truck != null )
         {
             _camVir1.Priority = 10;

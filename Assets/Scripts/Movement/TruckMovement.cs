@@ -12,6 +12,7 @@ public class TruckMovement : MonoBehaviour
     [SerializeField] InputActionReference _speedRun;
     [SerializeField] Rigidbody _carRb;
     [SerializeField] Vector3 _jumpForce;
+    [SerializeField] Vector3 _carRotation;
     [SerializeField] int _speed, _run;
 
 
@@ -44,10 +45,7 @@ public class TruckMovement : MonoBehaviour
 
     #endregion
 
-    public void Disactivate ()
-    {
-        _move.action.actionMap.Disable ();
-    }
+    public void Disactivate () => _move.action.actionMap.Disable ();
 
     #region Update
     void Update ()
@@ -68,7 +66,7 @@ public class TruckMovement : MonoBehaviour
         //Move
         if (_isMoving)
         {
-            transform.Translate (Direction * _speed * Time.smoothDeltaTime);
+            transform.Translate (Direction * _speed * Time.deltaTime);
         }
     }
 
@@ -77,7 +75,7 @@ public class TruckMovement : MonoBehaviour
         //Run
         if (_isRun)
         {
-            transform.Translate ( Direction * _speed * _run * Time.fixedDeltaTime);
+            transform.Translate ( Direction * _speed * _run * Time.deltaTime);
         }
     }
 
@@ -86,7 +84,7 @@ public class TruckMovement : MonoBehaviour
         //Jump
         if (_isJump)
         {
-            _carRb.AddForce (_jumpForce * Time.smoothDeltaTime);
+            _carRb.AddForce (_jumpForce * Time.deltaTime);
         }
     }
     #endregion
@@ -99,12 +97,12 @@ public class TruckMovement : MonoBehaviour
         
         if (_playerDir.x > 0)
         {
-            transform.rotation = Quaternion.Euler (0, 5 * Time.deltaTime, 0);
+            transform.rotation = Quaternion.Euler (_carRotation);
         }
         
         else if (_playerDir.x < 0)
         {
-            transform.rotation = Quaternion.Euler (0, -5 * Time.deltaTime, 0);            
+            transform.rotation = Quaternion.Euler (-_carRotation);            
         }
 
         else
